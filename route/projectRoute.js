@@ -23,9 +23,6 @@ const upload = multer({ storage: storage });
 router.get("/", checkKey, async (req, res) => {
     try {
         const data = await Project.find().select('-__v');
-        for (let d of data) {
-            d.image = '/uploads/' + d.image;
-        }
         res.send(data);
     } catch (e) {
         res.send({ message: "Unable to get Data", });
@@ -38,7 +35,7 @@ router.post("/", checkKey, async (req, res) => {
     let project = new Project({
         name: req.body.name,
         link: req.body.link,
-        image: image_name,
+        image: "data:image/png;base64"+req.body.image,
         description: req.body.description,
         tagline: req.body.tagline
     });
@@ -59,7 +56,6 @@ router.get("/:id", checkKey, async (req, res) => {
     if (id) {
         try {
             const data = await Project.findById(id).select("-__v");
-            data.image = '/uploads/' + data.image;
             res.send(data);
         } catch (e) {
             res.send({ message: 'Cannot find Project' });

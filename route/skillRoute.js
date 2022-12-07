@@ -22,21 +22,18 @@ const upload = multer({ storage: storage });
 router.get("/", checkKey, async (req, res) => {
     try {
         let data = await Skill.find().select("-__v");
-        for (let d of data) {
-            d.image = '/uploads/' + d.image;
-        }
         res.send(data);
     } catch (e) {
         res.send(e);
     }
 })
 
-router.post("/", [checkKey, upload.single('image')], async (req, res) => {
+router.post("/", checkKey, async (req, res) => {
 
 
     let skill = new Skill({
         name: req.body.name,
-        image: image_name,
+        image: "data:image/png;base64"+req.body.image,
         type: req.body.type,
         description: req.body.description
     });
