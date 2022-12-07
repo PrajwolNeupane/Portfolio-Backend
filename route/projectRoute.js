@@ -32,7 +32,7 @@ router.get("/", checkKey, async (req, res) => {
     }
 });
 
-router.post("/", [checkKey, upload.single('image')], async (req, res) => {
+router.post("/", checkKey, async (req, res) => {
 
 
     let project = new Project({
