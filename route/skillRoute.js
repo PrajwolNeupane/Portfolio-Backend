@@ -19,7 +19,7 @@ router.post("/", checkKey, async (req, res) => {
 
     let skill = new Skill({
         name: req.body.name,
-        image: req.body.image,
+        image: image_name,
         type: req.body.type,
         description: req.body.description
     });

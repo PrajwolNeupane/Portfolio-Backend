@@ -21,7 +21,7 @@ router.post("/", async (req, res) => {
     let project = new Project({
         name: req.body.name,
         link: req.body.link,
-        image: req.body.image,
+        image: image_name,
         description: req.body.description,
         tagline: req.body.tagline
     });
