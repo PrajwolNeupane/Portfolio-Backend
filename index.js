@@ -12,7 +12,7 @@ const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 
 const app = express();
 app.use(express.json());
-app.use(express.static("public"));
+
 app.use(cors({
     origin: "*"
 }));
