@@ -2,7 +2,7 @@
     "name": "backend",
     "version": "1.0.0",
     "engines": {
-      "node": "16.x"
+      "node": "14.x"
     },
     "description": "A really cool app.",
     "main": "index.js",
@@ -10,8 +10,8 @@
     
     "scripts": {
       "test": "echo \"Error: no test specified\" && exit 1",
-      "start":"node index.js",
-      "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
+      "start":"node index.js"
+
     },
     "keywords": [],
     "author": "",
