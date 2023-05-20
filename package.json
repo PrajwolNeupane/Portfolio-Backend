@@ -2,7 +2,7 @@
     "name": "backend",
     "version": "1.0.0",
     "engines": {
-      "node": "16.x"
+      "node": "18.x"
     },
     "description": "A really cool app.",
     "main": "index.js",
