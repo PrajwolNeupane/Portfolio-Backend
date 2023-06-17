@@ -1,5 +1,4 @@
 
-
 export const firebaseConfig = {
   apiKey: `${process.env.FIREBASE_KEY}`,
   authDomain: `${process.env.AUTH_DOMAIN}`,
