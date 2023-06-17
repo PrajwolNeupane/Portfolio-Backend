@@ -28,9 +28,13 @@ app.use("/user", userRoute);
 
 
 app.listen(process.env.PORT || 8000, async () => {
+   try{
     admin.initializeApp({
-        ...firebaseConfig
+        ...firebaseConfig   
     })
+   }catch(e){
+    console.log(e);
+   }
     console.log("Server Started");
     try {
         await DBConnection;
