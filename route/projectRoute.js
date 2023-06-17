@@ -1,10 +1,11 @@
 import checkKey from '../middleware/checkKey.js'
 import express from 'express'
 import Project from '../model/ProjectModel.js';
+import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
+import multer from 'multer';
 
 const router = express.Router();
-
-
+const upload = multer().single('image');
 
 router.get("/", async (req, res) => {
     try {
@@ -15,24 +16,37 @@ router.get("/", async (req, res) => {
     }
 });
 
-router.post("/", async (req, res) => {
+router.post("/", [checkKey, upload], async (req, res) => {
 
-
-    let project = new Project({
-        name: req.body.name,
-        link: req.body.link,
-        image: image_name,
-        description: req.body.description,
-        tagline: req.body.tagline
-    });
+    const storage = getStorage();
+    var photoURL
 
     try {
+        const fileRef = ref(storage, Date.now() + "-Project-" + Math.round(Math.random() * 10) + '.png');
+        const snapshot = await uploadBytes(fileRef, req?.file.buffer);
+        photoURL = await getDownloadURL(fileRef);
+    }
+    catch (e) {
+        console.log(`Error on Image ${e}`)
+    }
 
-        project = await project.save();
-        res.send(project);
+    if (photoURL) {
+        let project = new Project({
+            name: req.body.name,
+            link: req.body.link,
+            image: photoURL,
+            description: req.body.description,
+            tagline: req.body.tagline
+        });
 
-    } catch (e) {
-        res.send({ message: e });
+        try {
+
+            project = await project.save();
+            res.send(project);
+
+        } catch (e) {
+            res.send({ message: e });
+        }
     }
 
 });

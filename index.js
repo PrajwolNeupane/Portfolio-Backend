@@ -5,8 +5,9 @@ import skillRoute from './route/skillRoute.js';
 import messageRoute from './route/messageRoute.js';
 import userRoute from './route/userRoute.js';
 import cors from 'cors';
-import path from 'path';
+import { initializeApp } from "firebase/app";
 import * as url from 'url';
+import { firebaseConfig } from './firebase/firebase-config.js';
 
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 
@@ -28,6 +29,7 @@ app.use("/user", userRoute);
 
 app.listen(process.env.PORT || 8000, async () => {
 
+    const app = initializeApp(firebaseConfig);
     console.log("Server Started");
     try {
         await DBConnection;
