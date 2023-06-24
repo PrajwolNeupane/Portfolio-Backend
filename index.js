@@ -6,8 +6,6 @@ import messageRoute from './route/messageRoute.js';
 import userRoute from './route/userRoute.js';
 import cors from 'cors';
 import * as url from 'url';
-import { firebaseConfig } from './firebase/firebase-config.js';
-import admin from 'firebase-admin';
 
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 
@@ -28,13 +26,6 @@ app.use("/user", userRoute);
 
 
 app.listen(process.env.PORT || 8000, async () => {
-   try{
-    admin.initializeApp({
-        ...firebaseConfig   
-    })
-   }catch(e){
-    console.log(e);
-   }
     console.log("Server Started");
     try {
         await DBConnection;
